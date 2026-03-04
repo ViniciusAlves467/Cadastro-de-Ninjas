@@ -2,6 +2,7 @@ package CadastroNinjas.ninox.missoes.Model;
 
 
 import CadastroNinjas.ninox.Ninjas.Model.NinjaModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +26,6 @@ public class MissoesModel {
     private Dificuldade dificuldade;
 
     @OneToMany(mappedBy = "missoes")
+    @JsonIgnore
     private List<NinjaModel> ninjas;
 }
