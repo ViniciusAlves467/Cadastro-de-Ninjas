@@ -20,7 +20,10 @@ public class MissoesModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
+
+    @Enumerated(EnumType.STRING)
     private Dificuldade dificuldade;
+
     @OneToMany(mappedBy = "missoes")
     private List<NinjaModel> ninjas;
 }

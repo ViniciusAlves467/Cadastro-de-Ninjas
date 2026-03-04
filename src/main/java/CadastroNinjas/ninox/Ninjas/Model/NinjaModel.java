@@ -18,6 +18,9 @@ public class NinjaModel {
     private long id;
     private String nome;
 
+    @Enumerated(EnumType.STRING)
+    private RankingNinja rankingNinja;
+
     @Column(unique = true)
     private String email;
     private int idade;
