@@ -3,7 +3,7 @@ package CadastroNinjas.ninox.missoes.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/missoes")
 public class ControllerMissoes {
 
     @GetMapping("/listarMissoes")
