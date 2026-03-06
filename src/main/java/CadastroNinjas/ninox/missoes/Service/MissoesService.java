@@ -1,0 +1,40 @@
+package CadastroNinjas.ninox.missoes.Service;
+
+
+import CadastroNinjas.ninox.missoes.Model.MissoesModel;
+import CadastroNinjas.ninox.missoes.Repository.MissoesRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class MissoesService {
+    private MissoesRepository missoesRepository;
+
+    public MissoesService(MissoesRepository missoesRepository) {
+        this.missoesRepository = missoesRepository;
+    }
+
+    public List<MissoesModel> listarMissoes(){
+        return missoesRepository.findAll();
+    }
+
+    public MissoesModel listarMissaoPorID(Long id){
+        Optional <MissoesModel> missoesModel = missoesRepository.findById(id);
+        return missoesModel.orElse(null);
+    }
+
+    public String deletarMissao(Long id){
+        if(listarMissaoPorID(id)==null){
+            return "ID da missão inválida";
+        }else{
+            missoesRepository.deleteById(id);
+            return listarMissaoPorID(id).getNome()+" foi deletada com sucesso.";
+        }
+    }
+
+    public MissoesModel criarMissao(MissoesModel missoesModel){
+        return missoesRepository.save(missoesModel);
+    }
+}
