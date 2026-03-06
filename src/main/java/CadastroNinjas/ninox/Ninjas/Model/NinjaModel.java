@@ -1,6 +1,7 @@
 package CadastroNinjas.ninox.Ninjas.Model;
 
 
+import CadastroNinjas.ninox.Ninjas.DTO.NinjaDTO;
 import CadastroNinjas.ninox.missoes.Model.MissoesModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,8 @@ public class NinjaModel {
                 ", idade=" + idade +
                 '}';
     }
+
+
 
 
 }

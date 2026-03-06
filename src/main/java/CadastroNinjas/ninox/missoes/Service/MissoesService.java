@@ -29,8 +29,10 @@ public class MissoesService {
         if(listarMissaoPorID(id)==null){
             return "ID da missão inválida";
         }else{
+            String nomeDelete = listarMissaoPorID(id).getNome();
             missoesRepository.deleteById(id);
-            return listarMissaoPorID(id).getNome()+" foi deletada com sucesso.";
+            return nomeDelete+" foi deletada com sucesso.";
+
         }
     }
 

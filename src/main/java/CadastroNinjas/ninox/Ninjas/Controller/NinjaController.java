@@ -2,6 +2,7 @@ package CadastroNinjas.ninox.Ninjas.Controller;
 
 import CadastroNinjas.ninox.Ninjas.Model.NinjaModel;
 import CadastroNinjas.ninox.Ninjas.Service.NinjaService;
+import CadastroNinjas.ninox.missoes.Model.MissoesModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,12 +36,12 @@ public class NinjaController {
         return ninjaService.listaNinjaPorId(id);
     }
 
-    @PutMapping("/alterarID")
-    public String alterarNinjaId(){
-        return "Alterar ninja por id";
+    @PutMapping("/alterar/{id}")
+    public NinjaModel alterarNinjaId(@PathVariable Long id, @RequestBody NinjaModel ninjaModel){
+        return ninjaService.atualizarNinja(id,ninjaModel);
     }
 
-    @DeleteMapping("/deletarID/{id}")
+    @DeleteMapping("/deletar/{id}")
     public String deletarNinjaPorId(@PathVariable Long id){
         return ninjaService.deletarNinja(id);
     }

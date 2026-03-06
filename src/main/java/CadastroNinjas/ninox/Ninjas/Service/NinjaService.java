@@ -1,5 +1,6 @@
 package CadastroNinjas.ninox.Ninjas.Service;
 
+import CadastroNinjas.ninox.Ninjas.DTO.NinjaDTO;
 import CadastroNinjas.ninox.Ninjas.Model.NinjaModel;
 import CadastroNinjas.ninox.Ninjas.Repository.NinjaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,23 @@ public class NinjaService {
     }
 
     public String deletarNinja(Long id){
-        ninjaRepository.deleteById(id);
         if(listaNinjaPorId(id)==null){
             return "ID de ninja inválido";
         }else {
-            return listaNinjaPorId(id).getNome() + " deletado com sucesso";
+            String nomeDelete = listaNinjaPorId(id).getNome();
+            ninjaRepository.deleteById(id);
+            return  nomeDelete+ " deletado com sucesso";
         }
     }
+
+    public NinjaModel atualizarNinja(Long id,NinjaModel ninjaModel){
+        if(ninjaRepository.existsById(id)){
+            ninjaModel.setId(id);
+            return ninjaRepository.save(ninjaModel);
+        }
+        return null;
+    }
+
+
 
 }
