@@ -1,5 +1,6 @@
 package CadastroNinjas.ninox.Ninjas.Controller;
 
+import CadastroNinjas.ninox.Ninjas.DTO.NinjaDTO;
 import CadastroNinjas.ninox.Ninjas.Model.NinjaModel;
 import CadastroNinjas.ninox.Ninjas.Service.NinjaService;
 import CadastroNinjas.ninox.missoes.Model.MissoesModel;
@@ -22,8 +23,8 @@ public class NinjaController {
     }
 
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninjaModel){
-        return ninjaService.criarNinja(ninjaModel);
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninjaDTO){
+        return ninjaService.criarNinja(ninjaDTO);
     }
 
     @GetMapping("/todos")
