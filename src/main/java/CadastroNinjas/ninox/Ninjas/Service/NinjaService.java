@@ -58,11 +58,20 @@ public class NinjaService {
         }
     }
 
-    public NinjaDTO atualizarNinja(Long id,NinjaDTO ninjaDTO){
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO){
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
         if (ninjaModel.isPresent()){
             NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
             ninjaAtualizado.setId(id);
+
+            if (ninjaDTO.getIdMissao() != null) {
+                Optional<MissoesModel> missao = missoesRepository.findById(ninjaDTO.getIdMissao());
+                if (missao.isPresent()) {
+                    ninjaAtualizado.setMissoes(missao.get());
+                }
+            } else {
+                ninjaAtualizado.setMissoes(null);
+            }
             NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
             return ninjaMapper.map(ninjaSalvo);
         }

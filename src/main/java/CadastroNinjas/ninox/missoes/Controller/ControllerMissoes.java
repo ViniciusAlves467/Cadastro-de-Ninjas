@@ -26,7 +26,7 @@ public class ControllerMissoes {
         return missoesService.criarMissao(missaoDTO);
     }
 
-    @PutMapping("/alterar")
+    @PutMapping("/alterar/{id}")
     public MissaoDTO atualizarMissao(@PathVariable Long id, @RequestBody MissaoDTO missaoDTO){
         return missoesService.atualizarMissao(id, missaoDTO);
     }
