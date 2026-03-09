@@ -1,34 +1,51 @@
 package CadastroNinjas.ninox.Ninjas.Service;
 
 import CadastroNinjas.ninox.Ninjas.DTO.NinjaDTO;
+import CadastroNinjas.ninox.Ninjas.DTO.NinjaMapper;
 import CadastroNinjas.ninox.Ninjas.Model.NinjaModel;
 import CadastroNinjas.ninox.Ninjas.Repository.NinjaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import CadastroNinjas.ninox.missoes.Model.MissoesModel;
+import CadastroNinjas.ninox.missoes.Repository.MissoesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
 
     private NinjaRepository ninjaRepository;
+    private NinjaMapper ninjaMapper;
+    private MissoesRepository missoesRepository;
 
-    public NinjaService(NinjaRepository ninjaRepository) {
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper, MissoesRepository missoesRepository) {
         this.ninjaRepository = ninjaRepository;
+        this.ninjaMapper = ninjaMapper;
+        this.missoesRepository = missoesRepository;
     }
 
-    public List<NinjaModel> listarNinjas(){
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> listarNinjas(){
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public NinjaModel listaNinjaPorId(long id){
+    public NinjaDTO listaNinjaPorId(long id){
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
-        return ninjaModel.orElse(null);
+        return ninjaModel.map(ninjaMapper::map).orElse(null);
     }
 
-    public NinjaModel criarNinja(NinjaModel ninjaModel){
-        return ninjaRepository.save(ninjaModel);
+    public NinjaDTO criarNinja(NinjaDTO ninjaDTO){
+        NinjaModel ninjaModel = ninjaMapper.map(ninjaDTO);
+        if (ninjaDTO.getIdMissao() != null) {
+            MissoesModel missao = missoesRepository.findById(ninjaDTO.getIdMissao()).orElse(null);
+            ninjaModel.setMissoes(missao);
+        }
+
+        ninjaModel = ninjaRepository.save(ninjaModel);
+        return ninjaMapper.map(ninjaModel);
     }
 
     public String deletarNinja(Long id){
@@ -41,10 +58,22 @@ public class NinjaService {
         }
     }
 
-    public NinjaModel atualizarNinja(Long id,NinjaModel ninjaModel){
-        if(ninjaRepository.existsById(id)){
-            ninjaModel.setId(id);
-            return ninjaRepository.save(ninjaModel);
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO){
+        Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
+        if (ninjaModel.isPresent()){
+            NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
+            ninjaAtualizado.setId(id);
+
+            if (ninjaDTO.getIdMissao() != null) {
+                Optional<MissoesModel> missao = missoesRepository.findById(ninjaDTO.getIdMissao());
+                if (missao.isPresent()) {
+                    ninjaAtualizado.setMissoes(missao.get());
+                }
+            } else {
+                ninjaAtualizado.setMissoes(null);
+            }
+            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
+            return ninjaMapper.map(ninjaSalvo);
         }
         return null;
     }

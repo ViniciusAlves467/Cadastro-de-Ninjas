@@ -1,5 +1,6 @@
 package CadastroNinjas.ninox.Ninjas.Controller;
 
+import CadastroNinjas.ninox.Ninjas.DTO.NinjaDTO;
 import CadastroNinjas.ninox.Ninjas.Model.NinjaModel;
 import CadastroNinjas.ninox.Ninjas.Service.NinjaService;
 import CadastroNinjas.ninox.missoes.Model.MissoesModel;
@@ -22,23 +23,23 @@ public class NinjaController {
     }
 
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninjaModel){
-        return ninjaService.criarNinja(ninjaModel);
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninjaDTO){
+        return ninjaService.criarNinja(ninjaDTO);
     }
 
     @GetMapping("/todos")
-    public List<NinjaModel> mostrarTodosNinjas(){
+    public List<NinjaDTO> mostrarTodosNinjas(){
         return ninjaService.listarNinjas();
     }
 
     @GetMapping("/listarID/{id}")
-    public NinjaModel mostrarNinjaPorId(@PathVariable Long id){
+    public NinjaDTO mostrarNinjaPorId(@PathVariable Long id){
         return ninjaService.listaNinjaPorId(id);
     }
 
     @PutMapping("/alterar/{id}")
-    public NinjaModel alterarNinjaId(@PathVariable Long id, @RequestBody NinjaModel ninjaModel){
-        return ninjaService.atualizarNinja(id,ninjaModel);
+    public NinjaDTO alterarNinjaId(@PathVariable Long id, @RequestBody NinjaDTO ninjaDTO){
+        return ninjaService.atualizarNinja(id,ninjaDTO);
     }
 
     @DeleteMapping("/deletar/{id}")
