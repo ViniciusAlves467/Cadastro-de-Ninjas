@@ -28,6 +28,11 @@ public class NinjaMapper {
         ninjaDTO.setIdade(ninjaModel.getIdade());
         ninjaDTO.setRankingNinja(ninjaModel.getRankingNinja());
         ninjaDTO.setEmail(ninjaModel.getEmail());
+        if(ninjaModel.getMissoes() != null){
+            ninjaDTO.setIdMissao(ninjaModel.getMissoes().getId());
+            ninjaDTO.setNomeMissao(ninjaModel.getMissoes().getNome());
+        }
+
 
         return ninjaDTO;
     }

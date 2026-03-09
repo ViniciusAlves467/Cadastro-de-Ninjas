@@ -4,6 +4,8 @@ import CadastroNinjas.ninox.Ninjas.DTO.NinjaDTO;
 import CadastroNinjas.ninox.Ninjas.DTO.NinjaMapper;
 import CadastroNinjas.ninox.Ninjas.Model.NinjaModel;
 import CadastroNinjas.ninox.Ninjas.Repository.NinjaRepository;
+import CadastroNinjas.ninox.missoes.Model.MissoesModel;
+import CadastroNinjas.ninox.missoes.Repository.MissoesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +17,12 @@ public class NinjaService {
 
     private NinjaRepository ninjaRepository;
     private NinjaMapper ninjaMapper;
+    private MissoesRepository missoesRepository;
 
-    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper) {
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper, MissoesRepository missoesRepository) {
         this.ninjaRepository = ninjaRepository;
         this.ninjaMapper = ninjaMapper;
+        this.missoesRepository = missoesRepository;
     }
 
     public List<NinjaDTO> listarNinjas(){
@@ -35,6 +39,11 @@ public class NinjaService {
 
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO){
         NinjaModel ninjaModel = ninjaMapper.map(ninjaDTO);
+        if (ninjaDTO.getIdMissao() != null) {
+            MissoesModel missao = missoesRepository.findById(ninjaDTO.getIdMissao()).orElse(null);
+            ninjaModel.setMissoes(missao);
+        }
+
         ninjaModel = ninjaRepository.save(ninjaModel);
         return ninjaMapper.map(ninjaModel);
     }

@@ -1,5 +1,6 @@
 package CadastroNinjas.ninox.missoes.Controller;
 
+import CadastroNinjas.ninox.missoes.DTO.MissaoDTO;
 import CadastroNinjas.ninox.missoes.Model.MissoesModel;
 import CadastroNinjas.ninox.missoes.Service.MissoesService;
 import org.springframework.web.bind.annotation.*;
@@ -16,22 +17,22 @@ public class ControllerMissoes {
     }
 
     @GetMapping("/listar")
-    public List<MissoesModel> listarMissoes(){
+    public List<MissaoDTO> listarMissoes(){
         return missoesService.listarMissoes();
     }
 
     @PostMapping("/criar")
-    public MissoesModel criarMissoes(@RequestBody MissoesModel missoesModel){
-        return missoesService.criarMissao(missoesModel);
+    public MissaoDTO criarMissoes(@RequestBody MissaoDTO missaoDTO){
+        return missoesService.criarMissao(missaoDTO);
     }
 
     @PutMapping("/alterar")
-    public String alterarMissao(){
-        return "Missão alterada";
+    public MissaoDTO atualizarMissao(@PathVariable Long id, @RequestBody MissaoDTO missaoDTO){
+        return missoesService.atualizarMissao(id, missaoDTO);
     }
 
     @GetMapping("/listarId/{id}")
-    public MissoesModel listarMissaoPorID(@PathVariable Long id){
+    public MissaoDTO listarMissaoPorID(@PathVariable Long id){
         return missoesService.listarMissaoPorID(id);
     }
 
