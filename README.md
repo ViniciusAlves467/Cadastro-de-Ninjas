@@ -178,7 +178,7 @@ Criar ninja
 
 `POST /ninjas/criar`
 
-```Exemplo de JSON
+```json
 {
   "nome": "Naruto",
   "rankingNinja": "GENIN",
@@ -198,7 +198,7 @@ Atualizar ninja
 
 `PUT /ninjas/alterar/{id}`
 
-```
+```json
 {
   "nome": "Naruto",
   "rankingNinja": "GENIN",
@@ -222,7 +222,7 @@ Criar missões
 
 `POST /missoes/criar`
 
-```Exemplo de JSON
+```json
 {
   "nome": "Salvar cachorro",
   "dificuldade": "D"
@@ -239,7 +239,7 @@ Atualizar missões
 
 `PUT /missoes/alterar/{id}`
 
-```
+```json
 {
   "nome": "Salvar cachorro",
   "dificuldade": "D"
