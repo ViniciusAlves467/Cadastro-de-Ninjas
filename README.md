@@ -286,12 +286,15 @@ Console do H2:
 # ▶ Como Executar o Projeto
 
 1️⃣ Clonar o repositório
+
 `git clone https://github.com/seuusuario/cadastro-ninjas.git`
 
 2️⃣ Entrar na pasta do projeto
+
 `cd cadastro-ninjas`
 
 3️⃣ Rodar o projeto
+
 `mvn spring-boot:run`
 
 Ou executar a classe principal:
@@ -299,6 +302,7 @@ Ou executar a classe principal:
 CadastroNinjasApplication
 
 4️⃣ Acessar a API
+
 `http://localhost:8080`
 
 ---
@@ -308,4 +312,5 @@ CadastroNinjasApplication
 ### Vinicius Alves Santana
 
 Estudante de Engenharia da computação
+
 Desenvolvedor Back-End
